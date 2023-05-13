@@ -71,17 +71,17 @@ By using the Sloan's method, the result looks not real for two aspects:
 
 2. When ride on the track, the track in front of the camera has slope, which looks not real.
 
-![](demonstration\1.1.png)
+![1.1](demonstration\1.1.png)
 
 For example, if we have such a track above, we want to ride above the track, which means the normal should point upward. But Sloan's method can not get such a result.
 
 So, here is how I do this.
 
-![](demonstration\1.2.png)
+![1.2](demonstration\1.2.png)
 
 Suppose the tangent of P1 is v1, and the tangent of the next vertex of P1 is v2. The binormal of P1 should be b1 = v1 × v2. And the normal of P1 should be n1 = v1 × b1.
 
-![](demonstration\1.3.png)
+![1.3](demonstration\1.3.png)
 
 Until here, you may notice that the normal always point outward the concave area. The spline above show how this method failed. The normal will flip abruptly on the joint of the concave and convex part. So, I will need to check and flip the normal, this is how I do in pseudo code:
 
@@ -92,7 +92,7 @@ for normal in normal_list:
 	previous_normal = normal
 ```
 
-![](demonstration\1.4.png)
+![1.4](demonstration\1.4.png)
 
 
 
@@ -100,17 +100,17 @@ for normal in normal_list:
 
 The black line below is the spline, and the green line is the vertex of the track. The track is generated according to the normal and the binormal of the spline.  
 
-![](demonstration\2.1.png)
+![2.1](demonstration\2.1.png)
 
 But mind that to calculate the normal of the vertex of the spline, I use the cross product of 2 contiguous tangents, which is equal to 3 vertices position. 3 contiguous vertices position can determine a quadratic function. To make the quadratic function smooth in the joint, the spline need be at least C2 continuous. 
 
 When using Catmull Rom Spline, which is C1 continuous, I get the following track, there is artifact in the joint position.
 
-![](demonstration\2.2.png)
+![2.2](demonstration\2.2.png)
 
 This problem can be solved by using C2 continuous spline. Here I use B Splines. The only problem is that B spline does not pass the vertex we provide. Here, natural spline can solve this problem, but since it has lots of complex calculations, I decide not to use it.
 
-![](demonstration\2.3.png)
+![2.3](demonstration\2.3.png)
 
 
 
@@ -176,7 +176,7 @@ The texture of the sky box I use is from Unity standard asset. Rendering the sky
 
 Then I got this:
 
-![](demonstration\4.1.png)
+![4.1](demonstration\4.1.png)
 
 There is black part in the sky box. I check for all the code I write, and find no error happened. Then I noticed that maybe something wrong for the Perspective Viewing function. I place my sky box in x, y, z = -1000 and 1000, and coincidently, the perspective projection is:
 
@@ -192,7 +192,7 @@ And also, I adjust the light source position according to the position of sun of
 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 ```
 
-![](demonstration\4.2.png)
+![4.2](demonstration\4.2.png)
 
 
 
@@ -208,7 +208,7 @@ Generally, here is how I do:
 
 3. Calculate the distance from current position to the next vertex position. If this distance is less than the updating distance (see figure below), that means the next position must be after p1. Then minus this distance from the updating distance, and set current position equal to p1. Doing this step 3 until the distance from current position to the next vertex position is less than the updating distance.
 
-![](demonstration\5.1.png)
+![5.1](demonstration\5.1.png)
 
 4. Now the distance from current position to the next vertex position is greater than the updating distance. We stand on p2 (figure above). Calculate the next position according to the ratio between the current position and the next vertex position, and put the camera at this position.
 
@@ -222,7 +222,7 @@ To check this part, please run the program.
 
 Even if I set ` c = vec4(0.0f, 0.0f, 0.0f, 0.5f);` It is still not translucent.
 
-![](demonstration\6.1.png)
+![6.1](demonstration\6.1.png)
 
 Solution is that, I need to enable alpha channel blending somewhere in my program.
 
@@ -233,7 +233,7 @@ glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // set blend function
 
 ##### 6.2 Z-buffer fighting
 
-![](demonstration\6.2.png)
+![6.2](demonstration\6.2.png)
 
 This can be solved by the 4-steps algorithm.
 
@@ -255,4 +255,4 @@ glColorMask(colorMask[0], colorMask[1], colorMask[2], colorMask[3]);
 
 Finally, I got the following effect. (I change another ground texture image)
 
-![](demonstration\6.3.png)
+![6.3](demonstration\6.3.png)
