@@ -19,7 +19,7 @@ External library:
 - GLUT: create the window
 - GLEW: for OpenGL
 - GLM: OpenGL Mathematics  library
-- jpeg: for loading the height map
+- jpeg: for saving the output image
 
 Features of this project:
 
