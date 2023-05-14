@@ -52,7 +52,7 @@ How to use?
 
 1. Click rollerCoaster.sln to run the source project
 2. The demonstration folder show the rendering image
-3. The release folder has the compiled version of the project. To run the program, you need to provide one parameter as the input height map path. You can also click render.bat to start the demo
+3. The release folder has the compiled version of the project. You can click render.bat to start the demo
 4. The Bin folder contain the output of visual studio. Mind that this program need glew32.dll and freeglut.dll, so you need to put this two files into the folder that contain output the exe file.
 
 
